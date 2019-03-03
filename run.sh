@@ -7,6 +7,8 @@ api_free_mobile_number='' #Optional
 
 message=$'Alarm \nIntrusion detected \nDatetime : __datetime__\nCamera : __instanceName__\nImage : __pathToImage__'
 
+path_to_image_directory='/data/'
+https_enabled=false
 ## DO NOT MODIFY FOLLOWING LINES ##
 
 # Get JSON Payload
@@ -23,6 +25,14 @@ pathToImage=$(echo $JSON | python -c "import sys, json; print json.load(sys.stdi
 
 # Format timestamp
 datetime=`date -d @$timestamp`
+
+# Generate image URL
+prefix='https'
+if [ "$https_enabled" = false ];
+then prefix='http';
+fi
+IP=`curl https://ipinfo.io/ip`
+pathToImage="$prefix://$IP$path_to_image_directory$pathToImage"
 
 # Template the message
 message="${message/__datetime__/$datetime}"
