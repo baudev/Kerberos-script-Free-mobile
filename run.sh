@@ -9,6 +9,7 @@ message=$'Alarm \nIntrusion detected \nDatetime : __datetime__\nCamera : __insta
 
 path_to_image_directory='/data/'
 https_enabled=false
+port=80
 ## DO NOT MODIFY FOLLOWING LINES ##
 
 # Get JSON Payload
@@ -32,7 +33,7 @@ if [ "$https_enabled" = false ];
 then prefix='http';
 fi
 IP=`curl https://ipinfo.io/ip`
-pathToImage="$prefix://$IP$path_to_image_directory$pathToImage"
+pathToImage="$prefix://$IP:$port$path_to_image_directory$pathToImage"
 
 # Template the message
 message="${message/__datetime__/$datetime}"
