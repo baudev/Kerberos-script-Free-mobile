@@ -16,7 +16,13 @@ Edit the `run.sh` file:
 [How to get my Free Mobile ID and Pass?](https://www.freenews.fr/freenews-edition-nationale-299/free-mobile-170/nouvelle-option-notifications-par-sms-chez-free-mobile-14817) (in french).
 
 - `api_free_mobile_number`: your mobile number. *Optional. For future use perhaps?*
-- `message`: The message you want to receive in case of intrusion.
+- `message`: the message you want to receive in case of intrusion.
+- `path_to_image_directory`: path to the image.
+- `port`: port of the server.
+
+The `pathToImage` will be `http://your_ip:port/path_to_image_directory/imageName.jpg`. *your_ip is your public IP.*
+
+- `https_enabled`: if `pathToImage` must start by `http` or `https`.
 
 ### Customize the message
 
@@ -31,7 +37,7 @@ You can insert the following variables in your message:
 | instanceName | Name of the instance linked to the detection. E.g. `front door` |
 | regionCoordinates | Coordinates of the region where a movement was detected. E.g. `[308,250,346,329]` |
 | numberOfChanges | **?** E.g. `194` |
-| pathToImage | Path to the related image. E.g. `1486049622_6-161868_frontdoor_308-250-346-329_194_344.jpg` |
+| pathToImage | Path to the related image. E.g. `http://192.168.0.1/data/1486049622_6-161868_frontdoor_308-250-346-329_194_344.jpg` |
 
 To integrate a variable into the message, simply write in the message `__{variable}__`. E.g. `__datetimetime__`.
 
