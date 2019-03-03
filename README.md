@@ -8,14 +8,18 @@ Follow the official [Kerberos.io tutorial](https://doc.kerberos.io/2.0/machinery
 
 # Configuration
 
-Edit the `run.sh` file:
-
-- `api_free_mobile_user`: the Free Mobile ID.
-- `api_free_mobile_pass`: the Free Mobile Pass.
+1. Edit the `users.txt` file:
+- `FREE_ID`: the Free Mobile ID.
+- `FREE_PASS`: the Free Mobile Pass.
 
 [How to get my Free Mobile ID and Pass?](https://www.freenews.fr/freenews-edition-nationale-299/free-mobile-170/nouvelle-option-notifications-par-sms-chez-free-mobile-14817) (in french).
 
-- `api_free_mobile_number`: your mobile number. *Optional. For future use perhaps?*
+- `FREE_PHONE_NUMBER`: your mobile number. *Optional. For future use perhaps?*
+
+You can configure multiple users by adding lines to the file.
+
+2. Edit the `run.sh` file:
+
 - `message`: the message you want to receive in case of intrusion.
 - `path_to_image_directory`: path to the image.
 - `port`: port of the server.
