@@ -1,10 +1,6 @@
 #!/bin/bash
 
 ## SETTINGS ##
-api_free_mobile_user='XXXXXXXXX'
-api_free_mobile_pass='XXXXXXXXXXXX'
-api_free_mobile_number='' #Optional
-
 message=$'Alarm \nIntrusion detected \nDatetime : __datetime__\nCamera : __instanceName__\nImage : __pathToImage__'
 
 path_to_image_directory='/data/'
@@ -45,14 +41,20 @@ message="${message/__regionCoordinates__/$regionCoordinates}"
 message="${message/__numberOfChanges__/$numberOfChanges}"
 message="${message/__pathToImage__/$pathToImage}"
 
-# Send request to Free server
+# Send request to Free server for each users
 message_encoded=$(python -c "import urllib; print urllib.quote('''$message''')")
-url="https://smsapi.free-mobile.fr/sendmsg?user=$api_free_mobile_user&pass=$api_free_mobile_pass&msg=$message_encoded"
-status_code=$(curl --write-out %{http_code} --silent --output /dev/null $url)
 
-# Check the status code of the response
-if [ $status_code = 200 ] ; then
-  echo "Message successfully sent to $api_free_mobile_number"
-else
-  echo "Error while sending message to $api_free_mobile_number"
-fi
+for user in $(cat users.txt); do
+	api_free_mobile_user=$(echo $user | cut -d ":" -f1)
+	api_free_mobile_pass=$(echo $user | cut -d ":" -f2)
+	api_free_mobile_number=$(echo $user | cut -d ":" -f3)
+	url="https://smsapi.free-mobile.fr/sendmsg?user=$api_free_mobile_user&pass=$api_free_mobile_pass&msg=$message_encoded"
+	status_code=$(curl --write-out %{http_code} --silent --output /dev/null $url)
+
+	# Check the status code of the response
+	if [ $status_code = 200 ] ; then
+  	  echo "Message successfully sent to $api_free_mobile_number"
+	else
+	  echo "Error while sending message to $api_free_mobile_number"
+	fi
+done
