@@ -3,7 +3,7 @@
 ## SETTINGS ##
 message=$'Alarm \nIntrusion detected \nDatetime : __datetime__\nCamera : __instanceName__\nImage : __pathToImage__'
 
-path_to_image_directory='/data/'
+path_to_image_directory='/capture/'
 https_enabled=false
 port=80
 ## DO NOT MODIFY FOLLOWING LINES ##
@@ -44,7 +44,7 @@ message="${message/__pathToImage__/$pathToImage}"
 # Send request to Free server for each users
 message_encoded=$(python -c "import urllib; print urllib.quote('''$message''')")
 
-for user in $(cat users.txt); do
+for user in $(cat $(pwd)/users.txt); do
 	api_free_mobile_user=$(echo $user | cut -d ":" -f1)
 	api_free_mobile_pass=$(echo $user | cut -d ":" -f2)
 	api_free_mobile_number=$(echo $user | cut -d ":" -f3)
