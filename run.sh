@@ -44,7 +44,7 @@ message="${message/__pathToImage__/$pathToImage}"
 # Send request to Free server for each users
 message_encoded=$(python -c "import urllib; print urllib.quote('''$message''')")
 
-for user in $(cat $(pwd)/users.txt); do
+for user in $(cat `dirname "$0"`/users.txt); do
 	api_free_mobile_user=$(echo $user | cut -d ":" -f1)
 	api_free_mobile_pass=$(echo $user | cut -d ":" -f2)
 	api_free_mobile_number=$(echo $user | cut -d ":" -f3)
